@@ -109,7 +109,7 @@ module Debugger
         begin
           # 127.0.0.1 seemingly works with all systems and with IPv6 as well.
           # "localhost" and nil have problems on some systems.
-          host ||= '0.0.0.0'
+          host ||= '127.0.0.1'
           server = TCPServer.new(host, port)
           print_greeting_msg($stderr, host, port)
           notify_dispatcher(port) if notify_dispatcher
@@ -117,7 +117,7 @@ module Debugger
             $stderr.puts "Connected from #{session.peeraddr[2]}" if Debugger.cli_debug
             dispatcher = ENV['IDE_PROCESS_DISPATCHER']
             if dispatcher
-              ENV['IDE_PROCESS_DISPATCHER'] = "#{session.peeraddr[2]}:#{dispatcher}" unless dispatcher.include?(":")
+              ENV['IDE_PROCESS_DISPATCHER'] = "#{host}:#{dispatcher}" unless dispatcher.include?(":")
               ENV['DEBUGGER_HOST'] = host
             end
             begin
