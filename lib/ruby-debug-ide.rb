@@ -109,7 +109,7 @@ module Debugger
         begin
           # 127.0.0.1 seemingly works with all systems and with IPv6 as well.
           # "localhost" and nil have problems on some systems.
-          host ||= '127.0.0.1'
+          host ||= '0.0.0.0'
           server = TCPServer.new(host, port)
           print_greeting_msg($stderr, host, port)
           notify_dispatcher(port) if notify_dispatcher
